@@ -61,7 +61,6 @@ export function formatTimeFromString(timeStr: string): string {
 
 export function formatRelativeDate(date: Date | string): string {
   const d = typeof date === 'string' ? parseISO(date) : date;
-  const now = new Date();
 
   if (isToday(d)) return 'Today';
   if (isTomorrow(d)) return 'Tomorrow';

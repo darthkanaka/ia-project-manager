@@ -15,7 +15,6 @@ import type {
   PaginatedResponse,
   TeamMember,
   Client,
-  InternalSpace,
   Project,
   Task,
   Event,
@@ -51,9 +50,9 @@ export const authService = {
    * Sign in with email and password
    * TODO: Implement with Supabase Auth
    */
-  async signIn(email: string, password: string): Promise<ApiResponse<{ user: TeamMember; token: string }>> {
+  async signIn(email: string, _password: string): Promise<ApiResponse<{ user: TeamMember; token: string }>> {
     await delay(500);
-    console.log('Auth stub: signIn', { email, password: '***' });
+    console.log('Auth stub: signIn', { email });
     return createErrorResponse('Authentication not implemented');
   },
 
@@ -457,7 +456,7 @@ export const notificationService = {
    * Subscribe to real-time notifications
    * TODO: Implement with Supabase realtime
    */
-  subscribe(callback: (notification: Notification) => void): () => void {
+  subscribe(_callback: (notification: Notification) => void): () => void {
     console.log('Notification stub: subscribe');
     // Return unsubscribe function
     return () => {

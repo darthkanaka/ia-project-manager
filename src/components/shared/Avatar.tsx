@@ -1,4 +1,3 @@
-import React from 'react';
 import { getInitials, getColorFromString } from '../../utils';
 
 interface AvatarProps {

@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useReducer, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useReducer, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import type {
   AppState,
   TeamMember,
   Client,
-  InternalSpace,
   Project,
   Task,
   Event,
@@ -506,7 +506,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'ADD_TASK', payload: { projectId, task } });
   }, [state.currentUser]);
 
-  const updateTask = useCallback((id: string, projectId: string, data: TaskFormData) => {
+  const updateTask = useCallback((id: string, _projectId: string, data: TaskFormData) => {
     const allTasks = getAllTasks();
     const existingTask = allTasks.find((t) => t.id === id);
     if (existingTask) {
