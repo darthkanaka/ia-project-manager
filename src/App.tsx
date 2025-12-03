@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Sidebar } from './components/layout/Sidebar';
 import { Header } from './components/layout/Header';
@@ -54,7 +54,6 @@ function AppContent() {
   };
 
   const handleDateClick = (date: Date) => {
-    // Could open a modal to create an event on this date
     console.log('Date clicked:', date);
   };
 
@@ -83,16 +82,13 @@ function AppContent() {
   };
 
   const handleProjectClick = (project: Project) => {
-    // Navigate to project detail view
     console.log('Project clicked:', project.id);
   };
 
   const handleSaveTask = (data: Parameters<typeof addTask>[1]) => {
     if (selectedTask) {
-      // Update existing task
       updateTask(selectedTask.id, selectedTask.projectId, data);
     } else if (selectedProjectForModal) {
-      // Create new task
       addTask(selectedProjectForModal, data);
     }
     setShowTaskModal(false);
@@ -138,7 +134,6 @@ function AppContent() {
     console.log('Search:', query);
   };
 
-  // Get tasks and events based on selection
   const getDisplayedTasks = (): Task[] => {
     if (selectedClient) {
       return selectedClient.projects.flatMap((p) => p.tasks);
@@ -153,9 +148,7 @@ function AppContent() {
     return getAllEvents();
   };
 
-  // Render main content
   const renderMainContent = () => {
-    // If a client is selected, show ClientView
     if (selectedClient) {
       return (
         <ClientView
@@ -170,7 +163,6 @@ function AppContent() {
       );
     }
 
-    // Otherwise show the selected view with all tasks/events
     const tasks = getDisplayedTasks();
     const events = getDisplayedEvents();
 
@@ -227,7 +219,6 @@ function AppContent() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
       <Sidebar
         clients={state.clients}
         internalSpaces={state.internalSpaces}
@@ -242,7 +233,6 @@ function AppContent() {
         onToggleCollapse={toggleSidebar}
       />
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header
           currentUser={state.currentUser}
@@ -258,7 +248,6 @@ function AppContent() {
         <main className="flex-1 overflow-hidden">{renderMainContent()}</main>
       </div>
 
-      {/* Modals */}
       <TaskModal
         isOpen={showTaskModal}
         onClose={() => {

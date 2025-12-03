@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Home,
   Building2,
-  FolderKanban,
   Calendar,
   Settings,
   ChevronDown,
   ChevronRight,
   Plus,
   Layers,
-  Users,
 } from 'lucide-react';
 import type { Client, InternalSpace } from '../../types';
 import { getInitials, getColorFromString } from '../../utils';

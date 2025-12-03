@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Clock, CheckCircle, AlertCircle, PlayCircle, PauseCircle, AlertTriangle } from 'lucide-react';
 import type { Task, Event, TeamMember, TaskStatus } from '../../types';
 import { formatRelativeDate, formatTimeFromString, groupBy, isOverdue } from '../../utils';
 import { TaskStatusBadge, PriorityBadge } from '../shared/Badge';
-import { Avatar, AvatarGroup } from '../shared/Avatar';
+import { AvatarGroup } from '../shared/Avatar';
 import { EmptyState } from '../shared/EmptyState';
 
 interface TimelineViewProps {
