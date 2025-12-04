@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Sidebar } from './components/layout/Sidebar';
 import { Header } from './components/layout/Header';
@@ -8,9 +9,43 @@ import { EventModal } from './components/modals/EventModal';
 import { ClientModal } from './components/modals/ClientModal';
 import { ProjectModal } from './components/modals/ProjectModal';
 import { EmptyState } from './components/shared/EmptyState';
-import type { Task, Event, Project } from './types';
-import { Home } from 'lucide-react';
+import type { Task, Event, Project, ViewType } from './types';
+import { Home, LayoutList, Calendar, Clock } from 'lucide-react';
 import './App.css';
+
+// View Switcher Component
+function ViewSwitcher({
+  currentView,
+  onViewChange
+}: {
+  currentView: ViewType;
+  onViewChange: (view: ViewType) => void;
+}) {
+  const views: { id: ViewType; label: string; icon: ReactNode }[] = [
+    { id: 'timeline', label: 'Timeline', icon: <Clock className="w-4 h-4" /> },
+    { id: 'calendar', label: 'Calendar', icon: <Calendar className="w-4 h-4" /> },
+    { id: 'list', label: 'List', icon: <LayoutList className="w-4 h-4" /> },
+  ];
+
+  return (
+    <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
+      {views.map((view) => (
+        <button
+          key={view.id}
+          onClick={() => onViewChange(view.id)}
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+            currentView === view.id
+              ? 'bg-white text-gray-900 shadow-sm'
+              : 'text-gray-600 hover:text-gray-900'
+          }`}
+        >
+          {view.icon}
+          {view.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 function AppContent() {
   const {
@@ -168,11 +203,16 @@ function AppContent() {
 
     return (
       <div className="p-6 h-full overflow-y-auto">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-500">
-            Welcome back, {state.currentUser?.name}. Here's your overview.
-          </p>
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+            <p className="text-gray-500">
+              Welcome back, {state.currentUser?.name}. Here's your overview.
+            </p>
+          </div>
+          {(tasks.length > 0 || events.length > 0) && (
+            <ViewSwitcher currentView={state.selectedView} onViewChange={setView} />
+          )}
         </div>
 
         {tasks.length === 0 && events.length === 0 ? (
